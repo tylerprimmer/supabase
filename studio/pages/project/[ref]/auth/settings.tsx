@@ -67,6 +67,12 @@ const Settings = () => {
   }, [config])
 
   const onFormSubmit = async (model: any) => {
+    model.SECURITY_CAPTCHA_PROVIDER = 'hcaptcha';
+
+    if (!model.SECURITY_CAPTCHA_SECRET) {
+      model.SECURITY_CAPTCHA_ENABLED = false;
+    }
+
     for (const [key, value] of Object.entries(model)) {
       // remove any whitespaces in OAuth or Sms provider credentials
       if ((key.includes('EXTERNAL') || key.includes('SMS')) && typeof value === 'string') {
@@ -124,6 +130,8 @@ const Settings = () => {
             'PASSWORD_MIN_LENGTH',
             'SECURITY_UPDATE_PASSWORD_REQUIRE_REAUTHENTICATION',
             'SECURITY_REFRESH_TOKEN_REUSE_INTERVAL',
+            'SECURITY_CAPTCHA_ENABLED',
+            'SECURITY_CAPTCHA_SECRET',
           ])}
           model={{
             SITE_URL: model.SITE_URL || undefined,
@@ -134,6 +142,8 @@ const Settings = () => {
             SECURITY_REFRESH_TOKEN_REUSE_INTERVAL: model.SECURITY_REFRESH_TOKEN_REUSE_INTERVAL || undefined,
             SECURITY_UPDATE_PASSWORD_REQUIRE_REAUTHENTICATION:
               model.SECURITY_UPDATE_PASSWORD_REQUIRE_REAUTHENTICATION || false,
+            SECURITY_CAPTCHA_ENABLED: model.SECURITY_CAPTCHA_ENABLED || false,
+            SECURITY_CAPTCHA_SECRET: model.SECURITY_CAPTCHA_SECRET || undefined,
             }}
             onSubmit={(model: any) => onFormSubmit(model)}
         >
@@ -152,6 +162,8 @@ const Settings = () => {
           <NumField name="SECURITY_REFRESH_TOKEN_REUSE_INTERVAL" step="1" min={0}/>
           <ToggleField name="SECURITY_UPDATE_PASSWORD_REQUIRE_REAUTHENTICATION" />
           <ToggleField name="DISABLE_SIGNUP" />
+          <ToggleField name="SECURITY_CAPTCHA_ENABLED" />
+          <AutoField name="SECURITY_CAPTCHA_SECRET" />
         </SchemaFormPanel>
       </div>
       <div className="my-8 mt-0">

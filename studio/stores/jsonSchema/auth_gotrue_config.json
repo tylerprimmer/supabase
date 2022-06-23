@@ -448,6 +448,16 @@
       "type": "integer",
       "help": "Time interval where the same refresh token can be used to request for an access token."
     },
+    "SECURITY_CAPTCHA_ENABLED": {
+      "title": "hCaptcha protection enabled",
+      "type": "boolean",
+      "help": "Whether endpoints are protected from abuse with hCaptcha."
+    },
+    "SECURITY_CAPTCHA_SECRET": {
+      "title": "hCaptcha secret",
+      "type": "string",
+      "help": "Secret used to verify hCaptcha challenges."
+    },
     "SMS_AUTOCONFIRM": {
       "title": "Enable phone confirmations",
       "type": "boolean",
